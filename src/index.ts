@@ -1,19 +1,16 @@
 import express from 'express';
 import sequelize from './config/database';
 
-// Importa os models
 import './models/Refeicao';
 import './models/Alimento';
 import './models/RefeicaoAlimento';
 
-// Importa a função de associações
 import { setupAssociations } from './models/associations';
 
 const app = express();
 
 app.use(express.json());
 
-// Configura as associações
 setupAssociations();
 
 sequelize.sync({ alter: true })

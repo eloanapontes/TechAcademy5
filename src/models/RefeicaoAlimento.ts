@@ -1,32 +1,37 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
-
-@Table({
-  tableName: 'refeicao_alimentos',
-  timestamps: false,
-})
-export class RefeicaoAlimento extends Model {
-  @Column({
-    type: DataType.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
+import {
+    Table,
+    Column,
+    Model,
+    ForeignKey,
+    DataType,
+    BelongsTo,
+  } from 'sequelize-typescript';
+  import { Refeicao } from './Refeicao';
+  import { Alimento } from './Alimento';
+  
+  @Table({
+    tableName: 'refeicoes_alimentos',
+    timestamps: false,
   })
-  id!: number;
-
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
-  refeicaoId!: number;
-
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
-  alimentoId!: number;
-
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
-  quantidade!: number;
-}
+  export class RefeicaoAlimento extends Model<RefeicaoAlimento> {
+    @ForeignKey(() => Refeicao)
+    @Column({
+      type: DataType.INTEGER,
+      allowNull: false,
+    })
+    refeicaoId!: number;
+  
+    @BelongsTo(() => Refeicao)
+    refeicao!: Refeicao;
+  
+    @ForeignKey(() => Alimento)
+    @Column({
+      type: DataType.INTEGER,
+      allowNull: false,
+    })
+    alimentoId!: number;
+  
+    @BelongsTo(() => Alimento)
+    alimento!: Alimento;
+  }
+  

@@ -11,6 +11,6 @@ const sequelize = new Sequelize({
   password: '',
   database: 'dietapp',
   models: [Alimento, Refeicao, RefeicaoAlimento],
-} as any); // <- Aqui forçamos o tipo se tiver conflito de tipos chatos
+} as any);
 
 export default sequelize;

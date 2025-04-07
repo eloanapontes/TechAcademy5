@@ -1,12 +1,11 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, BelongsToMany } from 'sequelize-typescript';
+import { Refeicao } from './Refeicao';
+import { RefeicaoAlimento } from './RefeicaoAlimento';
 
-@Table({
-  tableName: 'alimentos',
-  timestamps: false,
-})
+@Table({ tableName: 'alimentos' })
 export class Alimento extends Model {
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.INTEGER.UNSIGNED,
     autoIncrement: true,
     primaryKey: true,
   })
@@ -19,8 +18,11 @@ export class Alimento extends Model {
   nome!: string;
 
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.FLOAT,
     allowNull: false,
   })
   calorias!: number;
+
+  @BelongsToMany(() => Refeicao, () => RefeicaoAlimento)
+  refeicoes!: Refeicao[];
 }

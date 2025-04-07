@@ -1,40 +1,22 @@
-import { Model, DataTypes, Optional, Association, BelongsToManyAddAssociationsMixin, BelongsToManySetAssociationsMixin } from 'sequelize';
-import sequelize from '../config/database';
+import { Table, Column, Model, DataType, BelongsToMany } from 'sequelize-typescript';
 import { Alimento } from './Alimento';
+import { RefeicaoAlimento } from './RefeicaoAlimento';
 
-interface RefeicaoAttributes {
-  id: number;
-  nome: string;
+@Table({ tableName: 'refeicoes' })
+export class Refeicao extends Model {
+  @Column({
+    type: DataType.INTEGER.UNSIGNED,
+    autoIncrement: true,
+    primaryKey: true,
+  })
+  id!: number;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  nome!: string;
+
+  @BelongsToMany(() => Alimento, () => RefeicaoAlimento)
+  alimentos!: Alimento[];
 }
-
-interface RefeicaoCreationAttributes extends Optional<RefeicaoAttributes, 'id'> {}
-
-export class Refeicao extends Model<RefeicaoAttributes, RefeicaoCreationAttributes> implements RefeicaoAttributes {
-  public id!: number;
-  public nome!: string;
-
-  public setAlimentos!: BelongsToManySetAssociationsMixin<Alimento, number>;
-  public addAlimentos!: BelongsToManyAddAssociationsMixin<Alimento, number>;
-
-  public static associations: {
-    alimentos: Association<Refeicao, Alimento>;
-  };
-}
-
-Refeicao.init(
-  {
-    id: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      autoIncrement: true,
-      primaryKey: true,
-    },
-    nome: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-  },
-  {
-    tableName: 'refeicoes',
-    sequelize,
-  }
-);
