@@ -13,11 +13,9 @@ export class Refeicao extends Model<RefeicaoAttributes, RefeicaoCreationAttribut
   public id!: number;
   public nome!: string;
 
-  // Adiciona os métodos que o Sequelize cria automaticamente!
   public setAlimentos!: BelongsToManySetAssociationsMixin<Alimento, number>;
   public addAlimentos!: BelongsToManyAddAssociationsMixin<Alimento, number>;
 
-  // Inclua as associações para o Sequelize entender
   public static associations: {
     alimentos: Association<Refeicao, Alimento>;
   };

@@ -1,6 +1,8 @@
-import { Alimento } from './Alimento';
 import { Refeicao } from './Refeicao';
+import { Alimento } from './Alimento';
 import { RefeicaoAlimento } from './RefeicaoAlimento';
 
-Refeicao.belongsToMany(Alimento, { through: RefeicaoAlimento, foreignKey: 'refeicaoId' });
-Alimento.belongsToMany(Refeicao, { through: RefeicaoAlimento, foreignKey: 'alimentoId' });
+export function setupAssociations() {
+  Refeicao.belongsToMany(Alimento, { through: RefeicaoAlimento, foreignKey: 'refeicaoId' });
+  Alimento.belongsToMany(Refeicao, { through: RefeicaoAlimento, foreignKey: 'alimentoId' });
+}
