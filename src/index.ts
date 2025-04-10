@@ -4,12 +4,15 @@ import sequelize from './config/database';
 import './models/Refeicao';
 import './models/Alimento';
 import './models/RefeicaoAlimento';
+import './models/Usuario';
 
 import { setupAssociations } from './models/associations';
+import usuarioRoutes from './routes/usuario.routes';
+
 
 const app = express();
 
-app.use(express.json());
+app.use('/api', usuarioRoutes);
 
 setupAssociations();
 

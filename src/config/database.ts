@@ -3,6 +3,8 @@ import { Sequelize } from 'sequelize-typescript';
 import { Alimento } from '../models/Alimento';
 import { Refeicao } from '../models/Refeicao';
 import { RefeicaoAlimento } from '../models/RefeicaoAlimento';
+import { Usuario } from '../models/Usuario';
+
 
 const sequelize = new Sequelize({
   dialect: 'mysql',
@@ -10,7 +12,7 @@ const sequelize = new Sequelize({
   username: 'root',
   password: '',
   database: 'dietapp',
-  models: [Alimento, Refeicao, RefeicaoAlimento],
+  models: [Usuario, Alimento, Refeicao, RefeicaoAlimento],
 } as any);
 
 export default sequelize;
