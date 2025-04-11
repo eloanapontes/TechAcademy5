@@ -1,21 +1,11 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
-import { Optional } from 'sequelize';
+import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
+import { Refeicao } from './Refeicao';
+import { Alimento } from './Alimento';
 
-
-interface UsuarioAttributes {
-  id: number;
-  nome: string;
-  email: string;
-  senha: string;
-  cpf: string;
-}
-
-interface UsuarioCreationAttributes extends Optional<UsuarioAttributes, 'id'> {}
-
-@Table({ tableName: 'usuarios', timestamps: true })
-export class Usuario extends Model<UsuarioAttributes, UsuarioCreationAttributes> {
+@Table({ tableName: 'usuarios' })
+export class Usuario extends Model {
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.INTEGER.UNSIGNED,
     autoIncrement: true,
     primaryKey: true,
   })
@@ -46,4 +36,10 @@ export class Usuario extends Model<UsuarioAttributes, UsuarioCreationAttributes>
     unique: true,
   })
   cpf!: string;
+
+  @HasMany(() => Alimento)
+  alimentos!: Alimento[];
+
+  @HasMany(() => Refeicao)
+  refeicoes!: Refeicao[];
 }

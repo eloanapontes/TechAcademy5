@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { RefeicaoController } from '../controllers/RefeicaoController';
-import { authMiddleware } from '../middlewares/auth';
+import { authMiddleware } from '../middlewares/authMiddleware';
 
 const router = Router();
 

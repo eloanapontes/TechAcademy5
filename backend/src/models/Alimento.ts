@@ -26,7 +26,7 @@ export class Alimento extends Model {
 
   @ForeignKey(() => Usuario)
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.INTEGER.UNSIGNED,
     allowNull: false,
   })
   usuarioId!: number;
