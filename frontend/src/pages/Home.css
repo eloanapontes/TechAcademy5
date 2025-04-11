@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Boldonse&family=Bungee+Shade&display=swap");
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+.paginaInicial {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+.paginaInicial img {
+  max-width: 80%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.paginaInicial img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px #ffc0cb;
+}
+
+.paginaInicial h1 {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 3rem;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+  margin-bottom: 40px;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+  text-align: center;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.loginButton,
+.RegisterButton {
+  padding: 15px 30px;
+  font-size: 1rem;
+  border: 2px solid #ffc0cb;
+  border-radius: 15px;
+  background-color: #c20a6f;
+
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.loginButton:hover,
+.RegisterButton:hover {
+  background-color: #ff69b4;
+  transform: scale(1.05);
+  border-color: #ffc0cb;
+}
+
+@media (max-width: 768px) {
+  .paginaInicial img {
+    max-width: 90%;
+  }
+
+  .paginaInicial h1 {
+    font-size: 2.5rem;
+  }
+
+  .loginButton,
+  .RegisterButton {
+    padding: 12px 24px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .paginaInicial h1 {
+    font-size: 2rem;
+  }
+
+  .loginButton,
+  .RegisterButton {
+    padding: 10px 20px;
+    font-size: 0.8rem;
+  }
+}

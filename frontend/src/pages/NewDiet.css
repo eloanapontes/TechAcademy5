@@ -1,0 +1,219 @@
+.food-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.food-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 50%;
+  max-width: 500px;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  color: black;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #c20a6f;
+}
+.diet-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px;
+  font-size: 1.2rem;
+  border: 2px solid white;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.diet-total {
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-top: 20px;
+  color: #c20a6f;
+}
+
+.final-food-list {
+  border-top: 2px solid #ddd;
+  padding-top: 10px;
+  list-style: none;
+}
+
+.food-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+}
+
+.food-name {
+  flex-grow: 1;
+  color: black;
+  text-align: left;
+}
+
+.buscarAlimento {
+  width: 65%;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+}
+
+.quantidade {
+  width: 150px;
+  height: 40px;
+  padding: 8px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  text-align: center;
+  font-size: 1rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.adicionar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100px;
+  height: 40px;
+
+  background-color: #5cb85c;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.adicionar:hover {
+  background-color: #4cae4c;
+}
+
+.lixeira {
+  background-color: transparent;
+  border: none;
+  font-size: 1.2rem;
+  color: red;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.lixeira:hover {
+  color: darkred;
+}
+
+.close-button {
+  margin-top: 16px;
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.delete-button {
+  background-color: white;
+  color: red;
+  font-size: 25px;
+  border: none;
+  padding: 3px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
+  width: auto;
+  min-width: 30px;
+}
+
+.delete-button:hover {
+  background-color: darkred;
+}
+@media (max-width: 768px) {
+  .food-card {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .diet-input {
+    font-size: 0.9rem;
+  }
+
+  .buscarAlimento,
+  .quantidade,
+  .adicionar {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h2 {
+    font-size: clamp(1.5rem, 4vw, 1.8rem);
+  }
+
+  .food-card {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .diet-input {
+    font-size: 0.8rem;
+    padding: 10px;
+  }
+
+  .buscarAlimento,
+  .quantidade,
+  .adicionar {
+    font-size: 0.8rem;
+    padding: 8px;
+  }
+  .button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .button-group button {
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    background-color: #c20a6f;
+    color: white;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .button-group button:hover {
+    background-color: #8d91c7;
+    transform: scale(1.03);
+  }
+  
+}

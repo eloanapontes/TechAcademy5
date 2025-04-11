@@ -1,0 +1,132 @@
+.profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.profile-form {
+  background: #fff;
+  padding: 30px;
+  border-radius: 20px;
+  border: 3px solid #ffc0cb;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.profile-form h2 {
+  color: #c20a6f;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+  font-weight: bold;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ffc0cb;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #c20a6f;
+  box-shadow: 0 0 5px rgba(194, 10, 111, 0.3);
+}
+
+.disabled-input {
+  background-color: #f0f0f0;
+  cursor: not-allowed;
+}
+
+.button-group {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.button-group button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.button-group button[type="submit"] {
+  background-color: #c20a6f;
+  color: white;
+}
+
+.cancel-button {
+  background-color: #ffc0cb;
+  color: #333;
+}
+
+.button-group button:hover {
+  transform: translateY(-2px);
+}
+
+.success-message {
+  color: #28a745;
+  text-align: center;
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #d4edda;
+  border-radius: 5px;
+}
+
+.error-message {
+  color: #dc3545;
+  text-align: center;
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #f8d7da;
+  border-radius: 5px;
+}
+
+.senha-group {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ffc0cb;
+  border-radius: 8px;
+  background-color: rgba(255, 192, 203, 0.05);
+}
+
+.senha-group h3 {
+  color: #c20a6f;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+}
+
+.change-password-button {
+  width: 100%;
+  padding: 10px;
+  margin: 20px 0;
+  background-color: transparent;
+  border: 2px solid #c20a6f;
+  color: #c20a6f;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.change-password-button:hover {
+  background-color: #c20a6f;
+  color: white;
+}

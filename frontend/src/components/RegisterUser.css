@@ -1,0 +1,86 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background-color: #ffe4e1;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  width: 500px;
+  padding: 30px;
+  background-color: #fff;
+  border: 3px solid #ffc0cb;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+h2 {
+  color: #c20a6f;
+  margin-bottom: 20px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+label {
+  font-weight: bold;
+  color: #333;
+  width: 40%;
+  text-align: right;
+  margin-right: 10px;
+}
+
+input {
+  flex: 1;
+  padding: 10px;
+  border: 2px solid #ffc0cb;
+  border-radius: 15px;
+  background-color: #ffe4e1;
+  font-size: 1rem;
+  box-sizing: border-box;
+  color: #333; 
+}
+
+input:focus {
+  border-color: #c20a6f;
+  outline: none;
+  box-shadow: 0 0 8px rgba(194, 10, 111, 0.5); /* Realce ao focar */
+}
+
+button {
+  width: 100%;
+  padding: 15px;
+  background-color: #c20a6f;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #8d91c7;
+  transform: scale(1.05);
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}

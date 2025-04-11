@@ -1,6 +1,7 @@
-import { Table, Column, Model, DataType, BelongsToMany } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, BelongsToMany, ForeignKey, BelongsTo } from 'sequelize-typescript';
 import { Refeicao } from './Refeicao';
 import { RefeicaoAlimento } from './RefeicaoAlimento';
+import { Usuario } from './Usuario';
 
 @Table({ tableName: 'alimentos' })
 export class Alimento extends Model {
@@ -22,6 +23,16 @@ export class Alimento extends Model {
     allowNull: false,
   })
   calorias!: number;
+
+  @ForeignKey(() => Usuario)
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
+  usuarioId!: number;
+
+  @BelongsTo(() => Usuario)
+  usuario!: Usuario;
 
   @BelongsToMany(() => Refeicao, () => RefeicaoAlimento)
   refeicoes!: Refeicao[];
