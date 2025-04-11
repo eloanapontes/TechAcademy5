@@ -12,6 +12,7 @@ interface UsuarioAttributes {
 
 interface UsuarioCreationAttributes extends Optional<UsuarioAttributes, 'id'> {}
 
+@Table({ tableName: 'usuarios', timestamps: true })
 export class Usuario extends Model<UsuarioAttributes, UsuarioCreationAttributes> {
   @Column({
     type: DataType.INTEGER,

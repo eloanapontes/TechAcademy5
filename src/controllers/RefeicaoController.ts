@@ -2,53 +2,80 @@ import { Request, Response } from 'express';
 import { Refeicao } from '../models/Refeicao';
 import { Alimento } from '../models/Alimento';
 
-export const createRefeicao = async (req: Request, res: Response) => {
-  try {
-    const { nome, alimentos } = req.body;
+export const RefeicaoController = {
+  async create(req: Request, res: Response) {
+    try {
+      const { nome, alimentos } = req.body;
 
-    // Cria a refeição
-    const refeicao = await Refeicao.create({ nome });
+      if (!nome || !Array.isArray(alimentos)) {
+        return res.status(400).json({ error: 'Nome e lista de alimentos são obrigatórios.' });
+      }
 
-    if (alimentos && alimentos.length > 0) {
-      // Busca os alimentos pelo ID
-      const alimentosEncontrados = await Alimento.findAll({
-        where: { id: alimentos },
+      const refeicao = await Refeicao.create({ nome });
+
+      if (alimentos.length > 0) {
+        await refeicao.$set('alimentos', alimentos);
+      }
+
+      res.status(201).json({ message: 'Refeição criada com sucesso!', refeicao });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Erro ao criar refeição.' });
+    }
+  },
+
+  async getAll(req: Request, res: Response) {
+    try {
+      const refeicoes = await Refeicao.findAll({ include: [Alimento] });
+
+      const refeicoesComCalorias = refeicoes.map(refeicao => {
+        const totalCalorias = refeicao.alimentos.reduce((acc, alimento) => acc + alimento.calorias, 0);
+        return {
+          ...refeicao.toJSON(),
+          totalCalorias,
+        };
       });
 
-      // Associa os alimentos à refeição
-      await refeicao.$set('alimentos', alimentosEncontrados);
+      res.json(refeicoesComCalorias);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Erro ao listar refeições.' });
     }
+  },
 
-    res.status(201).json(refeicao);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Erro ao criar refeição', error });
-  }
-};
+  async updateAlimentos(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const { alimentos } = req.body;
 
-export const getRefeicoes = async (req: Request, res: Response) => {
-  try {
-    const refeicoes = await Refeicao.findAll({ include: [Alimento] });
-    res.json(refeicoes);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Erro ao buscar refeições', error });
-  }
-};
+      const refeicao = await Refeicao.findByPk(id);
+      if (!refeicao) {
+        return res.status(404).json({ error: 'Refeição não encontrada.' });
+      }
 
-export const getRefeicaoById = async (req: Request, res: Response) => {
-  try {
-    const { id } = req.params;
+      await refeicao.$set('alimentos', alimentos);
 
-    const refeicao = await Refeicao.findByPk(id, { include: [Alimento] });
-
-    if (!refeicao) {
-      return res.status(404).json({ message: 'Refeição não encontrada' });
+      res.json({ message: 'Alimentos da refeição atualizados com sucesso!' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Erro ao atualizar alimentos da refeição.' });
     }
+  },
 
-    res.json(refeicao);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Erro ao buscar refeição', error });
-  }
+  async delete(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+
+      const refeicao = await Refeicao.findByPk(id);
+      if (!refeicao) {
+        return res.status(404).json({ error: 'Refeição não encontrada.' });
+      }
+
+      await refeicao.destroy();
+      res.status(204).send();
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Erro ao deletar refeição.' });
+    }
+  },
 };
