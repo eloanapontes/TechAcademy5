@@ -1,4 +1,4 @@
-jest.setTimeout(30000);
+
 
 import request from 'supertest';
 import app from '../src/app';
@@ -6,6 +6,7 @@ import sequelize from '../src/config/database';
 
 
 describe('Testes de Login', () => {
+    jest.setTimeout(40000);
   beforeAll(async () => {
     await sequelize.sync({ force: true });
 

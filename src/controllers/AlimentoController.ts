@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { Alimento } from '../models/Alimento';
 
 export const AlimentoController = {
-  
+
   async create(req: Request, res: Response) {
     try {
       const { nome, calorias } = req.body;
@@ -28,15 +28,28 @@ export const AlimentoController = {
     }
   },
 
-  async getAll(req: Request, res: Response) {
-    try {
-      const alimentos = await Alimento.findAll();
-      res.json(alimentos);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Erro interno do servidor.' });
-    }
-  },
+ async getAll(req: Request, res: Response) {
+  try {
+    const { page = 1, limit = 10 } = req.query;
+    const offset = (Number(page) - 1) * Number(limit);
+
+    const alimentos = await Alimento.findAndCountAll({
+      limit: Number(limit),
+      offset,
+    });
+
+    res.json({
+      total: alimentos.count,
+      paginaAtual: Number(page),
+      totalPaginas: Math.ceil(alimentos.count / Number(limit)),
+      dados: alimentos.rows,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Erro ao buscar alimentos.' });
+  }
+},
+
 
   async getById(req: Request, res: Response) {
     try {

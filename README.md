@@ -1,43 +1,36 @@
-# Dieta na Mão
+# 🥗 Dieta na Mão / Web Diet
 
-Sistema fullstack com autenticação JWT, criptografia de senha, validações e CRUDs completos.
+Aplicação completa para ajudar no controle de refeições e alimentos do dia a dia.  
+Sistema fullstack com autenticação segura, validações e CRUDs completos.
 
 ## 🚀 Tecnologias Utilizadas
 
-- Backend: Node.js, Express, Sequelize (ou Prisma)
-- Frontend: React (ou framework escolhido)
-- Banco de Dados: MySQL/PostgreSQL
-- Autenticação: JWT
-- Validações: Regex, lógica customizada (CPF, senha forte)
+- **Backend**: Node.js, Express, Sequelize ORM
+- **Banco de Dados**: MySQL
+- **Autenticação**: JWT com criptografia de senha usando bcrypt
+- **Validações**: Regex (e-mail), CPF válido e senha forte
+- **Testes**: Jest
 
-## 🔐 Funcionalidades
+## 🔑 Funcionalidades
 
 ### Autenticação
-- Login com e-mail e senha
-- Senha criptografada
-- Retorno de JWT
-- Validação de e-mail e CPF
+- Login seguro com e-mail e senha criptografada
+- Retorno de token JWT para acessar as rotas protegidas
+- Validação de e-mail e CPF no backend
 
-### Usuário
-- Cadastro com nome, e-mail, senha e CPF
-- Edição (exceto e-mail), com validações
-- Apenas usuário autenticado pode editar seu cadastro
+### Gestão de Usuários
+- Cadastro de usuários com nome, e-mail, senha forte e CPF
+- Edição de perfil, exceto o e-mail (que não pode ser alterado)
+- Somente o próprio usuário consegue editar sua conta
 
-### CRUDs
-- 3 recursos CRUD completos
-- Todas as rotas autenticadas
-- Paginação nas listagens
-- Relacionamento entre recursos
+### Alimentos e Refeições
+- Cadastro, listagem, atualização e exclusão de alimentos
+- Cadastro, listagem, atualização e exclusão de refeições
+- Vincular alimentos às refeições e visualizar total de calorias
+- Todas as operações protegidas por autenticação
+- Paginação nas listagens para melhor navegação
 
-## 🧪 Testes e Validações
-- Teste de todas as rotas com Insomnia/Postman
-- Tratamento de erros e mensagens amigáveis
-- Validações client-side e server-side
-
-## 💾 Execução do Projeto
-
-### Backend
-```bash
-cd backend
-npm install
-npm run dev
+### Testes Automatizados
+- Cobertura de testes para cadastro e login de usuários
+- Testes para CRUD completo de alimentos e refeições
+- Verificações para validar erros e fluxos corretos da API

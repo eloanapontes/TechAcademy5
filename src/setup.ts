@@ -1,7 +1,9 @@
 import sequelize  from '../src/config/database';
 import { setupAssociations } from '../src/models/associations';
+import dotenv from 'dotenv';
+dotenv.config({ path: '.env.test' });
 
-// Configura as associações antes dos testes
+
 setupAssociations();
 
 beforeAll(async () => {

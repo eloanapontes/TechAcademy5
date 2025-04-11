@@ -25,6 +25,7 @@ function gerarCPFValido() {
 }
 
 describe('Testes de Usuário', () => {
+  jest.setTimeout(40000);
 
   it('deve cadastrar um novo usuário com sucesso', async () => {
     const response = await request(app)
