@@ -10,11 +10,15 @@ import cors from 'cors';
 import usuarioRoutes from './routes/usuario.routes';
 import alimentoRoutes from './routes/alimento.routes';
 import refeicaoRoutes from './routes/refeicao.routes';
+import dietaRoutes from './routes/dieta.routes';
+
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
+app.use('/api/dietas', dietaRoutes);
+
 
 
 app.use('/api', usuarioRoutes);

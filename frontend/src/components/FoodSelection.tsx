@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./FoodSelection.css";
 import api from "../services/api";
 
 interface Food {
+  id?: number;
   name: string;
   calories: number;
 }
@@ -23,13 +25,14 @@ const FoodSelection: React.FC<FoodSelectionProps> = ({
   setMeals,
   onClose,
 }) => {
+  const navigate = useNavigate(); // 👈 Importante para navegação!
+
   const [foods, setFoods] = useState<Food[]>([]);
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState<Food[]>([]);
   const [quantity, setQuantity] = useState(1);
 
-  // Buscar alimentos do backend
   useEffect(() => {
     const fetchFoods = async () => {
       try {
@@ -56,7 +59,6 @@ const FoodSelection: React.FC<FoodSelectionProps> = ({
     );
   };
 
-  // Adicionar alimento à refeição
   const handleAddFood = async (food: Food) => {
     try {
       await api.post(`/refeicoes/${meal.id}/alimentos`, {
@@ -64,7 +66,6 @@ const FoodSelection: React.FC<FoodSelectionProps> = ({
         quantidade: quantity,
       });
 
-      // Atualizar lista de refeições
       const response = await api.get("/refeicoes");
       setMeals(response.data);
     } catch (error) {
@@ -119,9 +120,20 @@ const FoodSelection: React.FC<FoodSelectionProps> = ({
           <h4>Total da refeição: {calculateTotalCalories()} kcal</h4>
         </div>
 
-        <button className="close-button" onClick={onClose}>
-          Fechar
-        </button>
+        <div className="button-group">
+          <button className="close-button" onClick={onClose}>
+            Fechar
+          </button>
+
+          {/* Botão para criar novo alimento */}
+          <button
+            className="create-food-button"
+            onClick={() => navigate("/create-food")}
+            style={{ marginTop: "10px", backgroundColor: "#5cb85c", color: "white" }}
+          >
+            Criar Novo Alimento
+          </button>
+        </div>
       </div>
     </div>
   );

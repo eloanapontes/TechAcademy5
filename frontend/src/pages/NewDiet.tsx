@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import FoodSelection from "../components/FoodSelection";
 import api from "../services/api";
@@ -11,23 +11,49 @@ interface Food {
 }
 
 interface Meal {
+  id?: number;
   name: string;
-  foods: { food: Food; quantity: number }[]; 
+  foods: { food: Food; quantity: number }[];
 }
 
 const NewDiet: React.FC = () => {
   const navigate = useNavigate();
   const [dietName, setDietName] = useState("");
-  const [meals, setMeals] = useState<Meal[]>([
-    { name: "Café da manhã", foods: [] },
-    { name: "Almoço", foods: [] },
-    { name: "Café da tarde", foods: [] },
-    { name: "Lanche da tarde", foods: [] },
-    { name: "Jantar", foods: [] },
-  ]);
+  const [meals, setMeals] = useState<Meal[]>([]);
   const [selectedMeal, setSelectedMeal] = useState<Meal | null>(null);
   const [isAddingFood, setIsAddingFood] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  // Carregar refeições existentes do backend
+  useEffect(() => {
+    const fetchMeals = async () => {
+      try {
+        const response = await api.get("/refeicoes");
+        // Formatar para manter a estrutura esperada
+        const formattedMeals = response.data.dados.map((meal: any) => ({
+          id: meal.id,
+          name: meal.nome,
+          foods: meal.alimentos.map((food: any) => ({
+            food: {
+              id: food.id,
+              name: food.nome,
+              calories: food.calorias,
+            },
+            quantity: 1, // Padrão inicial
+          })),
+        }));
+        setMeals(formattedMeals);
+      } catch (error) {
+        console.error("Erro ao buscar refeições:", error);
+        setErrorMessage("Erro ao carregar refeições.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMeals();
+  }, []);
 
   const openForm = (meal: Meal) => {
     setSelectedMeal(meal);
@@ -44,7 +70,9 @@ const NewDiet: React.FC = () => {
         meal.name === mealName
           ? {
               ...meal,
-              foods: meal.foods.filter((entry) => entry.food.name !== foodName),
+              foods: meal.foods.filter(
+                (entry) => entry.food.name !== foodName
+              ),
             }
           : meal
       )
@@ -57,26 +85,40 @@ const NewDiet: React.FC = () => {
         setErrorMessage("Dê um nome para sua dieta antes de salvar.");
         return;
       }
-  
+
+      const hasFoods = meals.some((meal) => meal.foods.length > 0);
+
+      if (!hasFoods) {
+        setErrorMessage("Adicione pelo menos um alimento em uma refeição.");
+        return;
+      }
+
       const promises = meals
         .filter((meal) => meal.foods.length > 0)
-        .map((meal) => {
-          const alimentoIds = meal.foods.map((item) => item.food.id);
+        .map(async (meal) => {
+          const alimentoIds = meal.foods
+            .map((item) => item.food.id)
+            .filter(Boolean);
+
           return api.post("/refeicoes", {
-            nome: meal.name,
+            nome: `${dietName} - ${meal.name}`,
             alimentos: alimentoIds,
           });
         });
-  
+
       await Promise.all(promises);
-  
-      alert("Dieta salva com sucesso!"); // ✅ Mensagem de sucesso
+
+      alert("Dieta salva com sucesso!");
+      navigate("/historic-diet");
     } catch (error) {
       console.error("Erro ao salvar dieta:", error);
       setErrorMessage("Erro ao salvar dieta. Tente novamente.");
     }
   };
-  ;
+
+  if (loading) {
+    return <p>Carregando refeições...</p>;
+  }
 
   return (
     <div className="container">
@@ -136,7 +178,8 @@ const NewDiet: React.FC = () => {
           (total, meal) =>
             total +
             meal.foods.reduce(
-              (subtotal, item) => subtotal + item.food.calories * item.quantity,
+              (subtotal, item) =>
+                subtotal + item.food.calories * item.quantity,
               0
             ),
           0
@@ -144,7 +187,6 @@ const NewDiet: React.FC = () => {
         kcal
       </h2>
 
-      {/* Botões organizados */}
       <div className="button-group">
         <button onClick={saveDiet} className="save-button">
           Salvar Simulação
@@ -157,10 +199,7 @@ const NewDiet: React.FC = () => {
           Criar Novo Alimento
         </button>
 
-        <button
-          onClick={() => navigate("/options")}
-          className="back-button"
-        >
+        <button onClick={() => navigate("/options")} className="back-button">
           Voltar
         </button>
       </div>
