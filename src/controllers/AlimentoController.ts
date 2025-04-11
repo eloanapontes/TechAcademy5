@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { Alimento } from '../models/Alimento';
 
 export const AlimentoController = {
-  // ✅ Criar alimento
+  
   async create(req: Request, res: Response) {
     try {
       const { nome, calorias } = req.body;
@@ -28,7 +28,6 @@ export const AlimentoController = {
     }
   },
 
-  // ✅ Buscar todos os alimentos
   async getAll(req: Request, res: Response) {
     try {
       const alimentos = await Alimento.findAll();
@@ -39,7 +38,6 @@ export const AlimentoController = {
     }
   },
 
-  // ✅ Buscar alimento por ID
   async getById(req: Request, res: Response) {
     try {
       const { id } = req.params;
@@ -56,7 +54,6 @@ export const AlimentoController = {
     }
   },
 
-  // ✅ Atualizar alimento
   async update(req: Request, res: Response) {
     try {
       const { id } = req.params;
@@ -75,7 +72,6 @@ export const AlimentoController = {
     }
   },
 
-  // ✅ Deletar alimento
   async delete(req: Request, res: Response) {
     try {
       const { id } = req.params;

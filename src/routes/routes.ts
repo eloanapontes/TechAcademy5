@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import pool from '../config/database'; // Caminho da sua conexão com o banco
+import pool from '../config/database';
 
 const router = Router();
 

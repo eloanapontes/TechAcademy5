@@ -1,5 +1,7 @@
 import express from 'express';
 import sequelize from './config/database';
+import 'dotenv/config';
+
 
 import './models/Refeicao';
 import './models/Alimento';
