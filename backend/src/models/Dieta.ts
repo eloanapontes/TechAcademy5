@@ -37,6 +37,6 @@ import {
     usuario!: Usuario;
   
     @BelongsToMany(() => Refeicao, () => DietaRefeicao)
-    refeicoes!: Refeicao[]; // <-- ESSA LINHA aqui resolve o teu erro!!
+    refeicoes!: Refeicao[];
   }
   

@@ -1,10 +1,12 @@
 import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
+
 import './models/Refeicao';
 import './models/Alimento';
 import './models/RefeicaoAlimento';
 import './models/Usuario';
+import './models/Dieta';
 
 import usuarioRoutes from './routes/usuario.routes';
 import alimentoRoutes from './routes/alimento.routes';

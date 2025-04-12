@@ -4,7 +4,7 @@ import { authMiddleware } from '../middlewares/authMiddleware';
 
 const router = Router();
 
-router.post('/dietas', authMiddleware, DietaController.create);
-router.get('/dietas', authMiddleware, DietaController.getAll);
+router.post('/', authMiddleware, DietaController.create);
+router.get('/', authMiddleware, DietaController.getAll);
 
 export default router;
